@@ -2,7 +2,6 @@ import React from "react";
 
 const Todo = ({ todo }) => {
   const { title, priority, completed } = todo;
-  console.log(completed);
   const checkPriority = (priority) => {
     if (priority === "high" && !completed) {
       return "🚨";
