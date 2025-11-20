@@ -1,7 +1,8 @@
-import React from "react";
+import useTodoStore from "../context/useTodoStore";
 
 const Todo = ({ todo }) => {
-  const { title, priority, completed } = todo;
+  const { id, title, priority, completed } = todo;
+  const { deleteTodo } = useTodoStore();
   const checkPriority = (priority) => {
     if (priority === "high" && !completed) {
       return "🚨";
@@ -32,7 +33,12 @@ const Todo = ({ todo }) => {
         >
           Edit
         </button>
-        <button className="btn btn-danger mh-100 text-white">Delete</button>
+        <button
+          className="btn btn-danger mh-100 text-white"
+          onClick={() => deleteTodo(id)}
+        >
+          Delete
+        </button>
       </div>
     </div>
   );
