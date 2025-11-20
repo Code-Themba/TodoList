@@ -1,26 +1,24 @@
 import React from "react";
+import { v4 as uuidv4 } from "uuid";
 import useTodoStore from "../context/useTodoStore";
 
 const TodoForm = () => {
   const [title, setTitle] = React.useState("");
-  const [description, setDescription] = React.useState("");
   const [priority, setPriority] = React.useState("");
-  const [completed, setCompleted] = React.useState(false);
   const { addTodo } = useTodoStore();
 
   const handleAddTodo = (e) => {
     e.preventDefault();
     if (title.trim() === "" || priority === "") return;
     const newTodo = {
+      uuid: uuidv4(),
       title,
-      description,
       priority,
-      completed,
+      completed: false,
     };
     console.log(newTodo);
     addTodo(newTodo);
     setTitle("");
-    setDescription("");
     setPriority("");
   };
   return (
@@ -37,28 +35,34 @@ const TodoForm = () => {
           placeholder="Add a new todo"
         />
       </div>
-      <div className="mb-4 col-md-12">
-        <textarea
-          className="form-control border border-dark-subtle"
-          placeholder="Todo details(optional)"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          rows={10}
-          width="100%"
-        ></textarea>
-      </div>
-      <div className="col-md-12">
-        <select
-          className="form-select border border-dark-subtle"
-          aria-label="Default select example"
-          value={priority}
-          onChange={(e) => setPriority(e.target.value)}
-        >
-          <option defaultValue="Set Priority">Set Priority</option>
-          <option value="high">High</option>
-          <option value="medium">Medium</option>
-          <option value="low">Low</option>
-        </select>
+      <div className="col-md-12 d-inline-flex gap-3 my-3 px-2">
+        <span className="d-flex align-items-center gap-1">
+          <label htmlFor="low">Low</label>
+          <input
+            type="radio"
+            name="priority"
+            id="low"
+            onChange={(e) => setPriority(e.target.checked)}
+          />
+        </span>
+        <span className="d-flex align-items-center gap-1">
+          <label htmlFor="medium">Medium</label>
+          <input
+            type="radio"
+            name="priority"
+            id="medium"
+            onChange={(e) => setPriority(e.target.checked)}
+          />
+        </span>
+        <span className="d-flex align-items-center gap-1">
+          <label htmlFor="high">High</label>
+          <input
+            type="radio"
+            name="priority"
+            id="high"
+            onChange={(e) => setPriority(e.target.checked)}
+          />
+        </span>
       </div>
       <div className="col-md-12">
         <button type="submit" className="btn btn-primary">

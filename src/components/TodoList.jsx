@@ -1,6 +1,9 @@
 import Todo from "./Todo";
+import useTodoStore from "../context/useTodoStore";
 
-const TodoList = ({ todos }) => {
+const TodoList = () => {
+  const todos = useTodoStore((state) => state.getTodos());
+
   return (
     <>
       {todos.map((todo, index) => (
